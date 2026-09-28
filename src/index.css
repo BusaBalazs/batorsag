@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Cinzel", "Times New Roman", serif;
+  --font-body: "Lora", Georgia, serif;
+
+  --color-night: #050d1c;
+  --color-deep: #0a1e3a;
+  --color-gold: #e9b95c;
+  --color-gold-light: #f6dc9a;
+  --color-gold-dark: #a8721f;
+  --color-crimson: #7c1d2b;
+  --color-parchment: #efe3c8;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-night);
+  color: var(--color-parchment);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Nyitó oldal háttere: éjkék égbolt, arany "holdfény" fent, bordó parázs lent */
+.landing-bg {
+  background:
+    radial-gradient(60% 38% at 50% 0%, rgba(233, 185, 92, 0.13), transparent 70%),
+    radial-gradient(70% 45% at 100% 100%, rgba(124, 29, 43, 0.28), transparent 70%),
+    linear-gradient(180deg, #0a1e3a 0%, #050d1c 55%, #02060d 100%);
+}
+
+/* Visszaszámláló oldal háttere: a kép szélszíneihez igazított lineáris átmenet */
+.countdown-bg {
+  background: linear-gradient(
+    180deg,
+    #011323 0%,
+    #00132b 22%,
+    #01070a 58%,
+    #000000 100%
+  );
+}
+
+.gold-text {
+  background: linear-gradient(180deg, #f6dc9a 0%, #e9b95c 55%, #a8721f 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    scroll-behavior: auto !important;
+  }
+}
