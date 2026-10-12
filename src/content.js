@@ -1,8 +1,8 @@
 // A szöveg szó szerint a landing.txt fájlból származik – ne fogalmazd át.
 
 export const hero = {
-  icon: "📜",
-  title: "Útmutató a Bátorságpróbához",
+  icon: "⚡",
+  title: "Varázslóútmutató a Bátorságpróbához",
   subtitle:
     "Olvasd el figyelmesen, mielőtt elindulsz a Rákóczi kert titkos ösvényein!",
 };
@@ -72,7 +72,7 @@ export const sections = [
 ];
 
 export const closing =
-  "";
+  "Felkészültél? Fogd a varázspálcádat (és a telefonodat), majd indulhat a bátorságpróba!";
 
 export const consentLabel = "Elolvastam és megértettem";
 export const enterLabel = "Belépés";

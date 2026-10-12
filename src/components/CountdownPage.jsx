@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
-import bg from "../assets/bg.webp";
-import { EVENT_START } from "../config.js";
+import poster from "../assets/poster.webp";
+import { EVENT_START, SKIP_COUNTDOWN } from "../config.js";
 
 const target = new Date(EVENT_START).getTime();
 
@@ -35,10 +35,11 @@ function Tile({ value, label, valueRef }) {
   );
 }
 
-export default function CountdownPage() {
+export default function CountdownPage({ onStart }) {
   const rootRef = useRef(null);
   const secRef = useRef(null);
   const [t, setT] = useState(getParts);
+  const done = t.done || SKIP_COUNTDOWN;
 
   useEffect(() => {
     const id = setInterval(() => setT(getParts()), 1000);
@@ -62,16 +63,27 @@ export default function CountdownPage() {
     return () => mm.revert();
   }, []);
 
+  // Lejáratkor a visszaszámláló helyén megjelenő felirat belépő animációja
+  useEffect(() => {
+    if (!done || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    gsap.fromTo(
+      "[data-go]",
+      { opacity: 0, scale: 0.6 },
+      { opacity: 1, scale: 1, duration: 1, ease: "back.out(1.7)" }
+    );
+    gsap.to("[data-go]", { textShadow: "0 0 3cqw rgba(246,220,154,0.9)", duration: 1.4, repeat: -1, yoyo: true, ease: "sine.inOut" });
+  }, [done]);
+
   // A másodperc-számláló finom "ketyegése"
   useEffect(() => {
-    if (!secRef.current) return;
+    if (!secRef.current || done) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     gsap.fromTo(
       secRef.current,
       { opacity: 0.45, scale: 0.94 },
       { opacity: 1, scale: 1, duration: 0.4, ease: "power2.out" }
     );
-  }, [t.seconds]);
+  }, [t.seconds, done]);
 
   return (
     <div
@@ -81,7 +93,7 @@ export default function CountdownPage() {
       {/* A kép mindig teljes egészében látszik; a wrapper a kép arányát követi */}
       <div className="grid w-[min(100vw,calc(100dvh*917/1024))] [aspect-ratio:917/1024] [container-type:inline-size]">
         <img
-          src={bg}
+          src={poster}
           alt="Bátorságpróba – Varázslat, rejtély, kaland"
           className="block size-full object-contain"
           style={{ gridArea: "1 / 1" }}
@@ -95,21 +107,33 @@ export default function CountdownPage() {
         >
           <div />
           <div className="flex flex-col items-center justify-center gap-[3.5cqw]">
-            <p data-count className="text-[3.4cqw] italic text-parchment/80">
-              A kaland kezdetéig
-            </p>
-            <div data-count role="timer" className="flex items-start gap-[2cqw]">
-              <Tile value={pad(t.days)} label="nap" />
-              <Tile value={pad(t.hours)} label="óra" />
-              <Tile value={pad(t.minutes)} label="perc" />
-              <Tile value={pad(t.seconds)} label="mp" valueRef={secRef} />
-            </div>
+            {done ? (
+              <p
+                data-go
+                className="gold-text max-w-[78cqw] text-center font-display text-[6.2cqw] font-bold leading-tight"
+              >
+                Eljött az idő, hogy próbára tedd a bátorságod
+              </p>
+            ) : (
+              <>
+                <p data-count className="text-[3.4cqw] italic text-parchment/80">
+                  A kaland kezdetéig
+                </p>
+                <div data-count role="timer" className="flex items-start gap-[2cqw]">
+                  <Tile value={pad(t.days)} label="nap" />
+                  <Tile value={pad(t.hours)} label="óra" />
+                  <Tile value={pad(t.minutes)} label="perc" />
+                  <Tile value={pad(t.seconds)} label="mp" valueRef={secRef} />
+                </div>
+              </>
+            )}
             <button
               data-count
               type="button"
-              disabled={!t.done}
+              disabled={!done}
+              onClick={onStart}
               className={`rounded-full px-[9cqw] py-[2.2cqw] font-display text-[4.2cqw] font-bold tracking-wide transition-[background,box-shadow,color,border-color] duration-500 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-light ${
-                t.done
+                done
                   ? "cursor-pointer bg-linear-to-b from-gold-light via-gold to-gold-dark text-night shadow-[0_0_28px_rgba(233,185,92,0.6)]"
                   : "cursor-not-allowed border border-gold/40 bg-night/60 text-parchment/55"
               }`}
