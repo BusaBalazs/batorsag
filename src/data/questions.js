@@ -48,6 +48,8 @@ export const questions = [
       "Elérkezett a pillanat, amelyre minden ifjú varázsló vár!",
       "A Roxfort Expressz hamarosan indul, de a vonatot nem találjátok meg a közönséges vágányok között. A 9 és ¾. vágányhoz egy titkos átjáró vezet, amelyet csak az igazi varázslódiákok képesek megtalálni. Mielőtt átléphetnétek a varázsfalon, össze kell készítenetek az útipoggyászotokat! Vajon tudjátok, hogy mit kell magatokkal vinni az első tanévre?Válasszátok ki a megfelelő felszereléseket! Ha sikeresen összepakoltatok, megnyílik előttetek az út a varázsvilág felé. A vonat nem vár örökké…",
     ],
+    succesText:
+      "A Roxfort Expressz indulásra kész! Fogjátok meg a poggyászkocsit, és lépjetek át a varázsvilágba!",
     question:
       "9 és ¾. vágány – Roxforti csomaglista: Te mit vinnél magaddal az első tanévre? Válaszd ki a megfelelő felszereléseket!",
     answers: [
@@ -59,6 +61,6 @@ export const questions = [
       "📚 Varázskönyvek",
       "🛹 Gördeszka",
     ],
-    correct: [0,2,3,5],
+    correct: [0, 2, 3, 5],
   },
 ];

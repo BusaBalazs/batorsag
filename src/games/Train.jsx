@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { reduced } from "../lib/motion.js";
-import { WRONG_ANSWER_LOCK_MS, CORRECT_ANSWER_DELAY_MS } from "../config.js";
+import { WRONG_ANSWER_LOCK_MS } from "../config.js";
 import { getQuestion } from "../data/index.js";
 import PlaceholderGame from "./PlaceholderGame.jsx";
 
@@ -19,6 +19,7 @@ export default function Train({ station, onComplete }) {
 /** Kérdés címsorként + válaszlehetőségek. Rossz válasz: piros háttér, 3 mp múlva újra lehet próbálni. */
 export function Quiz({ question, onComplete }) {
   const rootRef = useRef(null);
+  const dialogRef = useRef(null);
   const [status, setStatus] = useState("idle"); // idle | wrong | correct
   const [selected, setSelected] = useState(null);
   const [solved, setSolved] = useState(() => new Set());
@@ -54,6 +55,20 @@ export function Quiz({ question, onComplete }) {
   }, []);
 
   useEffect(() => () => clearTimeout(timer.current), []);
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (status !== "correct" || dialog.open) return;
+
+    dialog.showModal();
+    if (!reduced()) {
+      gsap.fromTo(
+        dialog,
+        { scale: 0.75, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(1.8)" },
+      );
+    }
+  }, [status]);
 
   // A rossz válasz utáni „várakozás” sáv a render után indul (addigra létezik az elem)
   useEffect(() => {
@@ -97,7 +112,6 @@ export function Quiz({ question, onComplete }) {
       }
       if (correctAnswers.every((answer) => nextSolved.has(answer))) {
         setStatus("correct");
-        timer.current = window.setTimeout(onComplete, CORRECT_ANSWER_DELAY_MS);
       }
     } else {
       setStatus("wrong");
@@ -201,9 +215,33 @@ export function Quiz({ question, onComplete }) {
             </div>
           )}
           {status === "correct" && (
-            <p className="font-display text-lg font-bold text-gold-light">
-              Helyes válasz! A következő állomás jön…
-            </p>
+            <dialog
+              ref={dialogRef}
+              aria-labelledby="quiz-success-title"
+              onCancel={(event) => event.preventDefault()}
+              className="m-auto w-[min(92vw,26rem)] rounded-3xl border-[3px] border-gold bg-linear-to-b from-[#12315e] to-[#071427] p-6 text-center text-parchment shadow-[0_0_50px_rgba(233,185,92,0.4)] backdrop:bg-black/70 backdrop:backdrop-blur-sm"
+            >
+              <h2
+                id="quiz-success-title"
+                className="mb-3 font-display text-2xl font-bold text-gold-light"
+              >
+                Sikeres megoldás!
+              </h2>
+              <p className="mb-6 text-lg leading-relaxed">
+                {question.succesText ?? "Helyes válasz!"}
+              </p>
+              <button
+                type="button"
+                className="btn-gold w-full"
+                autoFocus
+                onClick={() => {
+                  dialogRef.current.close();
+                  onComplete();
+                }}
+              >
+                Tovább
+              </button>
+            </dialog>
           )}
         </div>
       </div>
