@@ -2,11 +2,21 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { reduced } from "../lib/motion.js";
 import { WRONG_ANSWER_LOCK_MS, CORRECT_ANSWER_DELAY_MS } from "../config.js";
+import { getQuestion } from "../data/index.js";
+import PlaceholderGame from "./PlaceholderGame.jsx";
 
-const HOUSES = ["house-green", "house-blue", "house-gold"];
+const HOUSES = ["house-green", "house-blue", "house-gold", "house-purple"];
 
-/** Kvízkérdés: címsor-szerű kérdés + válaszlehetőségek. Rossz válasz: piros háttér, 3 mp múlva újra lehet próbálni. */
-export default function QuizView({ question, onCorrect }) {
+/** Kvíz típusú játék: a kérdést a src/data/questions.js-ből veszi az állomás száma alapján. */
+export default function QuizGame({ station, onComplete }) {
+  const question = getQuestion(station.id);
+  // Ha ehhez az állomáshoz nincs kérdés felvéve, ne akadjon el a játékos
+  if (!question) return <PlaceholderGame station={station} onComplete={onComplete} />;
+  return <Quiz question={question} onComplete={onComplete} />;
+}
+
+/** Kérdés címsorként + válaszlehetőségek. Rossz válasz: piros háttér, 3 mp múlva újra lehet próbálni. */
+export function Quiz({ question, onComplete }) {
   const rootRef = useRef(null);
   const [status, setStatus] = useState("idle"); // idle | wrong | correct
   const [selected, setSelected] = useState(null);
@@ -45,7 +55,7 @@ export default function QuizView({ question, onCorrect }) {
         gsap.fromTo(el, { scale: 0.94 }, { scale: 1.04, duration: 0.45, ease: "elastic.out(1, 0.45)" });
         gsap.fromTo("[data-card]", { boxShadow: "0 0 0 0 rgba(255,225,120,0)" }, { boxShadow: "0 0 60px 12px rgba(255,225,120,0.55)", duration: 0.6, yoyo: true, repeat: 1 });
       }
-      timer.current = window.setTimeout(onCorrect, CORRECT_ANSWER_DELAY_MS);
+      timer.current = window.setTimeout(onComplete, CORRECT_ANSWER_DELAY_MS);
     } else {
       setStatus("wrong");
       if (!reduced()) {
@@ -61,7 +71,11 @@ export default function QuizView({ question, onCorrect }) {
   return (
     <div ref={rootRef} className="flex flex-1 flex-col justify-center">
       <div data-card className="panel p-5 sm:p-6">
-        <h2 className="mb-6 text-center font-display text-[1.65rem] font-bold leading-snug text-balance gold-text">
+        <h2
+          className={`mb-6 text-center font-display font-bold leading-snug text-balance gold-text ${
+            question.question.length > 110 ? "text-lg" : "text-[1.65rem]"
+          }`}
+        >
           {question.question}
         </h2>
 

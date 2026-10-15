@@ -1,6 +1,6 @@
 import { CODE_PARAM } from "../config.js";
 
-/** A QR tartalmából kinyeri a kódot: vagy egy link (?k=KÓD), vagy maga a nyers kód. */
+/** A QR tartalmából kinyeri a kódot: vagy egy link (?k=KÓD), vagy maga a nyers szám. */
 export function extractCode(text) {
   const t = String(text ?? "").trim();
   try {
@@ -12,6 +12,3 @@ export function extractCode(text) {
   }
   return t;
 }
-
-export const codesMatch = (a, b) =>
-  String(a).trim().toLowerCase() === String(b).trim().toLowerCase();

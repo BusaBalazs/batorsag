@@ -4,11 +4,12 @@ import GameShell from "../components/GameShell.jsx";
 import Progress from "../components/Progress.jsx";
 import MapView from "../components/MapView.jsx";
 import ScannerView from "../components/ScannerView.jsx";
-import QuizView from "../components/QuizView.jsx";
 import FinishView from "../components/FinishView.jsx";
 import WarningDialog from "../components/WarningDialog.jsx";
-import { getStation, getQuestion } from "../data/index.js";
+import { getStation } from "../data/index.js";
+import { getGame } from "../games/index.js";
 import { reduced } from "../lib/motion.js";
+import { SHOW_TEST_BUTTON } from "../config.js";
 
 export default function GameScreen({ game, incomingCode, onIncomingHandled }) {
   const { state, submitCode, completeStation, reset } = game;
@@ -53,11 +54,12 @@ export default function GameScreen({ game, incomingCode, onIncomingHandled }) {
     body = (
       <FinishView startedAt={state.startedAt} finishedAt={state.finishedAt} total={total} onReset={reset} />
     );
-  } else if (state.phase === "quiz") {
+  } else if (state.phase === "game") {
+    const Game = getGame(station.id);
     body = (
       <>
         <Progress step={state.step} total={total} />
-        <QuizView key={station.id} question={getQuestion(station.id)} onCorrect={completeStation} />
+        <Game key={station.id} station={station} onComplete={completeStation} />
       </>
     );
   } else {
@@ -84,10 +86,30 @@ export default function GameScreen({ game, incomingCode, onIncomingHandled }) {
     body = <ScannerView onResult={handleScan} onCancel={() => setScanning(false)} />;
   }
 
+  // TESZT gomb (asztali teszteléshez, QR-kód beolvasása nélkül) – lásd SHOW_TEST_BUTTON a config.js-ben
+  const testButton =
+    SHOW_TEST_BUTTON && !finished && station ? (
+      <button
+        type="button"
+        className="mx-auto rounded-full border border-dashed border-gold/60 bg-night/70 px-4 py-1.5 text-xs font-semibold tracking-wide text-gold-light"
+        onClick={() => {
+          if (state.phase === "map") {
+            setScanning(false);
+            submitCode(String(station.id)); // a helyes QR beolvasását szimulálja
+          } else {
+            completeStation(); // az állomás teljesítését szimulálja
+          }
+        }}
+      >
+        TESZT: {state.phase === "map" ? `QR beolvasása (${station.id}. állomás)` : "állomás teljesítése"}
+      </button>
+    ) : null;
+
   return (
     <GameShell>
       <div ref={rootRef} data-screen className="flex min-h-0 flex-1 flex-col gap-4">
         {body}
+        {testButton}
       </div>
       <WarningDialog open={warning} onClose={() => setWarning(false)} />
     </GameShell>

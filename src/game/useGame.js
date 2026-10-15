@@ -1,18 +1,19 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { stations, getStation } from "../data/index.js";
 import { STORAGE_KEY } from "../config.js";
-import { extractCode, codesMatch } from "./qr.js";
+import { extractCode } from "./qr.js";
 
 // Ha az állomások listája megváltozik, a régi mentés érvénytelen.
-const signature = stations.map((s) => s.id).join(",");
+const signature = stations.map((s) => `${s.id}${s.final ? "f" : ""}`).join(",");
+const STAGES = ["landing", "countdown", "story", "game"];
 
 const fresh = (stage = "landing") => ({
-  v: 1,
+  v: 3,
   sig: signature,
-  stage, // landing → countdown → game
-  order: [], // a játékos saját, véletlenszerű állomás-sorrendje (állomás id-k)
+  stage, // landing → countdown → story → game
+  order: [], // a játékos saját állomás-sorrendje (állomás id-k): véletlenszerű, a végső állomás(ok) a végén
   step: 0, // hanyadik állomásnál tart
-  phase: "map", // map: keresi a kódot · quiz: a kód megvolt, jön a kérdés
+  phase: "map", // map: keresi a kódot · game: a kód megvolt, jön az állomás játéka
   startedAt: null,
   finishedAt: null,
 });
@@ -26,12 +27,19 @@ function shuffle(list) {
   return a;
 }
 
+/** Véletlenszerű sorrend a hagyományos állomásokból, a "final" állomások mindig utoljára. */
+function makeOrder() {
+  const regular = stations.filter((s) => !s.final).map((s) => s.id);
+  const finals = stations.filter((s) => s.final).map((s) => s.id);
+  return [...shuffle(regular), ...finals];
+}
+
 function read() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return fresh();
     const s = JSON.parse(raw);
-    if (!s || s.sig !== signature || !["landing", "countdown", "game"].includes(s.stage)) return fresh();
+    if (!s || s.sig !== signature || !STAGES.includes(s.stage)) return fresh();
     if (s.stage === "game") {
       const valid =
         Array.isArray(s.order) &&
@@ -74,20 +82,27 @@ export function useGame() {
     []
   );
 
+  /** Start gomb a visszaszámlálón: jön a bevezető történet. */
+  const showStory = useCallback(
+    () => setState((s) => (s.stage === "countdown" ? { ...s, stage: "story" } : s)),
+    []
+  );
+
+  /** A történet végén: elindul a játék, kisorsoljuk a játékos állomás-sorrendjét. */
   const startGame = useCallback(
     () =>
       setState((s) =>
-        s.stage === "game"
-          ? s
-          : {
+        s.stage === "story"
+          ? {
               ...s,
               stage: "game",
-              order: shuffle(stations.map((x) => x.id)),
+              order: makeOrder(),
               step: 0,
               phase: "map",
               startedAt: Date.now(),
               finishedAt: null,
             }
+          : s
       ),
     []
   );
@@ -97,8 +112,9 @@ export function useGame() {
     const s = ref.current;
     if (s.stage !== "game" || s.phase !== "map" || s.step >= s.order.length) return "ignored";
     const expected = getStation(s.order[s.step]);
-    if (expected && codesMatch(extractCode(text), expected.code)) {
-      setState((p) => (p.phase === "map" ? { ...p, phase: "quiz" } : p));
+    // A QR-kód tartalma az állomás száma
+    if (expected && extractCode(text) === String(expected.id)) {
+      setState((p) => (p.phase === "map" ? { ...p, phase: "game" } : p));
       return "correct";
     }
     return "wrong";
@@ -122,5 +138,5 @@ export function useGame() {
     setState(fresh("countdown"));
   }, []);
 
-  return { state, acceptRules, startGame, submitCode, completeStation, reset };
+  return { state, acceptRules, showStory, startGame, submitCode, completeStation, reset };
 }

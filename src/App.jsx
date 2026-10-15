@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 import LandingPage from "./components/LandingPage.jsx";
 import CountdownPage from "./components/CountdownPage.jsx";
+import StoryScreen from "./screens/StoryScreen.jsx";
 import GameScreen from "./screens/GameScreen.jsx";
 import UnsupportedBrowser from "./screens/UnsupportedBrowser.jsx";
 import { useGame } from "./game/useGame.js";
@@ -22,8 +23,11 @@ function Root() {
   if (stage === "game") {
     return <GameScreen game={game} incomingCode={incoming} onIncomingHandled={clearIncoming} />;
   }
+  if (stage === "story") {
+    return <StoryScreen onStart={game.startGame} />;
+  }
   if (stage === "countdown") {
-    return <CountdownPage onStart={game.startGame} />;
+    return <CountdownPage onStart={game.showStory} />;
   }
   return (
     <LandingPage

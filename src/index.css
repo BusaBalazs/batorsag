@@ -191,6 +191,11 @@ body {
     --shade: #7a5208;
     --ink: #2b1a00;
   }
+  .house-purple {
+    --from: #9b6bff;
+    --to: #4b2a9a;
+    --shade: #2a1760;
+  }
   .answer-wrong {
     --from: #f0484a !important;
     --to: #a31419 !important;
