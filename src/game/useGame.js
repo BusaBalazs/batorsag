@@ -62,7 +62,8 @@ export function useGame() {
   useEffect(() => {
     try {
       const json = JSON.stringify(state);
-      if (localStorage.getItem(STORAGE_KEY) !== json) localStorage.setItem(STORAGE_KEY, json);
+      if (localStorage.getItem(STORAGE_KEY) !== json)
+        localStorage.setItem(STORAGE_KEY, json);
     } catch {
       /* privát mód / tele a tár – a játék memóriában tovább megy */
     }
@@ -78,14 +79,18 @@ export function useGame() {
   }, []);
 
   const acceptRules = useCallback(
-    () => setState((s) => (s.stage === "landing" ? { ...s, stage: "countdown" } : s)),
-    []
+    () =>
+      setState((s) =>
+        s.stage === "landing" ? { ...s, stage: "countdown" } : s,
+      ),
+    [],
   );
 
   /** Start gomb a visszaszámlálón: jön a bevezető történet. */
   const showStory = useCallback(
-    () => setState((s) => (s.stage === "countdown" ? { ...s, stage: "story" } : s)),
-    []
+    () =>
+      setState((s) => (s.stage === "countdown" ? { ...s, stage: "story" } : s)),
+    [],
   );
 
   /** A történet végén: elindul a játék, kisorsoljuk a játékos állomás-sorrendjét. */
@@ -102,15 +107,16 @@ export function useGame() {
               startedAt: Date.now(),
               finishedAt: null,
             }
-          : s
+          : s,
       ),
-    []
+    [],
   );
 
   /** Beolvasott kód ellenőrzése. Visszatér: "correct" | "wrong" | "ignored" */
   const submitCode = useCallback((text) => {
     const s = ref.current;
-    if (s.stage !== "game" || s.phase !== "map" || s.step >= s.order.length) return "ignored";
+    if (s.stage !== "game" || s.phase !== "map" || s.step >= s.order.length)
+      return "ignored";
     const expected = getStation(s.order[s.step]);
     // A QR-kód tartalma az állomás száma
     if (expected && extractCode(text) === String(expected.id)) {
@@ -124,9 +130,14 @@ export function useGame() {
     () =>
       setState((s) => {
         const step = s.step + 1;
-        return { ...s, step, phase: "map", finishedAt: step >= s.order.length ? Date.now() : null };
+        return {
+          ...s,
+          step,
+          phase: "map",
+          finishedAt: step >= s.order.length ? Date.now() : null,
+        };
       }),
-    []
+    [],
   );
 
   const reset = useCallback(() => {
@@ -138,5 +149,13 @@ export function useGame() {
     setState(fresh("countdown"));
   }, []);
 
-  return { state, acceptRules, showStory, startGame, submitCode, completeStation, reset };
+  return {
+    state,
+    acceptRules,
+    showStory,
+    startGame,
+    submitCode,
+    completeStation,
+    reset,
+  };
 }

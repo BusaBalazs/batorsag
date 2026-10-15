@@ -9,6 +9,11 @@ import Ron from "./Ron.jsx";
 import Train from "./Train.jsx";
 import ChessBoard from "./ChessBoard.jsx";
 import Kviddics from "./Kviddics.jsx";
+import Candy from "./Candy.jsx";
+import MoonLight from "./MoonLight.jsx";
+import WhiteBird from "./WhiteBird.jsx";
+import Dobby from "./Dobby.jsx";
+import Mandragora from "./Mandragora.jsx";
 import FinalGame from "./FinalGame.jsx";
 
 // ─────────────────────────────────────────────────────────────
@@ -43,12 +48,14 @@ const games = {
   6: SpiralGame,
   7: ChessBoard,
   8: PotionGame,
-  9: QuizGame,
+  9: FinalGame,
   10: QuizGame,
-  11: QuizGame,
-  12: QuizGame,
+  11: MoonLight,
+  12: Mandragora,
   13: QuizGame,
-  14: FinalGame,
+  14: Candy,
+  15: Dobby,
+  16: WhiteBird,
 };
 
 export const getGame = (stationId) => games[stationId] ?? PlaceholderGame;
