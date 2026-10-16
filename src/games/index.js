@@ -14,6 +14,9 @@ import MoonLight from "./MoonLight.jsx";
 import WhiteBird from "./WhiteBird.jsx";
 import Dobby from "./Dobby.jsx";
 import Mandragora from "./Mandragora.jsx";
+import Magic from "./Magic.jsx";
+import Map from "./Map.jsx";
+import Labor from "./Labor.jsx";
 import FinalGame from "./FinalGame.jsx";
 
 // ─────────────────────────────────────────────────────────────
@@ -45,11 +48,11 @@ const games = {
   3: Kviddics,
   4: EdevisMirror,
   5: Ron,
-  6: SpiralGame,
+  6: Labor,
   7: ChessBoard,
-  8: PotionGame,
+  8: Magic,
   9: FinalGame,
-  10: QuizGame,
+  10: Map,
   11: MoonLight,
   12: Mandragora,
   13: QuizGame,

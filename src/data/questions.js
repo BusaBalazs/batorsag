@@ -63,4 +63,27 @@ export const questions = [
     ],
     correct: [0, 2, 3, 5],
   },
+  
+  {
+    // labor
+    stationId: 6,
+
+    quiz: [
+      {
+        question: "Ki tanította a bájitaltant Harry Potter első roxforti évében?",
+        answers: ["Minerva McGalagony", "Perselus Piton", "Rubeus Hagrid"],
+        correct: 1,
+      },
+      {
+        question: "Melyik varázsigével lehet fényt gyújtani a varázspálca végén?",
+        answers: ["Lumos", "Expelliarmus", "Wingardium Leviosa"],
+        correct: 0,
+      },
+      {
+        question: "Melyik főzet segítségével lehet valaki más külsejét felvenni?",
+        answers: ["Felix Felicis", "Százfűlé-főzet", "Amortentia"],
+        correct: 1,
+      },
+    ],
+  },
 ];

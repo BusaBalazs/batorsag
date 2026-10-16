@@ -18,9 +18,7 @@ export default function Progress({ step, total }) {
   return (
     <div ref={ref} className="w-full [text-shadow:0_1px_8px_rgba(0,0,0,0.95)]">
       <div className="mb-2 flex items-baseline justify-between">
-        <span className="font-display text-lg font-bold text-gold-light">
-          {Math.min(step + 1, total)}. állomás
-        </span>
+      
         <span className="font-display text-sm font-semibold text-parchment/70">
           {Math.min(step, total)} / {total} kész
         </span>

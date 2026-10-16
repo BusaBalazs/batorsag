@@ -27,7 +27,7 @@ export const stationTexts = {
     headline: "EDEVIS TÜKRE – Mered meglátni, amit mások nem látnak?",
     subHeadline: "A KÜLDETÉSETEK:",
     paragraphs: [
-      "Kedves Varázslódiákok!",
+     
       "Egy különös helyre érkeztetek.",
       "A legenda szerint Edevis tükre nem a külsőnket mutatja meg, hanem szívünk legmélyebb vágyát.",
       "Ám ma este a tükröket titokzatos varázslat érte.",
@@ -65,7 +65,7 @@ export const stationTexts = {
     headline:
       "AZ ELVARÁZSOLT SAKKTÁBLA! Titkos küldetés – mágikus stratégiai próba",
     paragraphs: [
-      "Kedves Varázslódiákok!",
+     
       "Egy ősi, elvarázsolt sakktábla elé érkeztetek, amelynek bábui egykor maguktól mozogtak, és csak a legbátrabb varázslók mertek szembeszállni velük. A legenda szerint Harry Potter és barátai is egy ilyen mágikus sakkjátszmával találkoztak, amikor a bölcsek kövének titkát kutatták. Akkor Ron Weasley bátorságán és leleményességén múlt, hogy barátai továbbjuthattak. Most azonban a sakktábla újra életre kelt…",
       "A bábuk egy titokzatos próbatételre várnak, de a tábla csak azok előtt nyitja meg az utat, akik képesek együtt gondolkodni, jó döntéseket hozni, és akkor is bátrak maradni, amikor minden lépés számít.",
       "Vajon készen álltok a mágikus sakkpróbára?",
@@ -78,6 +78,47 @@ export const stationTexts = {
     confirmText: "Megcsináltad a feladatot?",
     confirmYes: "Igen",
     confirmNo: "Még nem",
+  },
+
+  8: {
+    headline: "VARÁZSLÉNYEK KERESÉSE",
+    paragraphs: [
+      "Különös dolgok történnek a Roxfort környékén!",
+      "Az éjszaka folyamán valami megzavarta a mágikus világ békéjét. A varázslények nyugtalanná váltak, és olyan helyeken is felbukkantak, ahol korábban soha nem látták őket. A professzorok attól tartanak, hogy egy ismeretlen varázslat áll a különös események mögött. Hagrid most a ti segítségeteket kéri!",
+      "De vigyázzatok! A varázsvilág teremtményei nem mindig olyanok, amilyennek első pillantásra látszanak. Van, amelyik félénk, van, amelyik játékos, és akad olyan is, amelyik különösen nagy bátorságot kíván. Vajon méltók vagytok a legendás lények gondozóinak bizalmára?",
+      "Keressétek a Bátorságpróba Őrzőjét, aki elárulja, milyen titkos próbatétel vár rátok! Ne feledjétek: az igazi varázsló nemcsak bátor, hanem minden élőlényre vigyáz. Hagrid számít rátok!",
+    ],
+    buttonLabel: "Tovább megyek",
+    confirmText: "Megcsináltad a feladatot?",
+    confirmYes: "Igen",
+    confirmNo: "Még nem",
+  },
+
+  10: {
+    headline: "A TEKERGŐK TÉRKÉPE",
+    paragraphs: [
+      "Egy különleges térkép került a birtokunkba.",
+      "Ez azonban nem közönséges térkép! A legenda szerint a Tekergők Térképe olyan titkokat is megmutat, amelyeket a közönséges szemek soha nem fedeznének fel. Ám a térkép varázsereje meggyengült, és a rajta szereplő útvonalak összekuszálódtak. A professzorok szerint csak azok képesek megfejteni a titkát, akiknek éles a szemük, jó a megfigyelőképességük, és nem riadnak vissza az ismeretlentől.",
+      "Most rajtatok a sor!",
+      "Egy különleges tájékozódási próba vár rátok, ahol minden apró részletnek jelentősége lehet. Vajon képesek lesztek eligazodni a mágikus jelek és rejtett nyomok között?",
+      "A küldetés pontos részleteit a helyszínen, a Bátorságpróba Őrzőitől tudhatjátok meg.",
+      "De mielőtt nekivágtok, ne feledjétek a Tekergők híres szavait: „Ünnepélyesen esküszöm, hogy rosszban sántikálok!” Az igazi kaland csak most kezdődik…",
+    ],
+    buttonLabel: "Tovább megyek",
+    confirmText: "Megcsináltad a feladatot?",
+    confirmYes: "Igen",
+    confirmNo: "Még nem",
+  },
+
+  6: {
+    headline: "A VARÁZSLATOK LABORATÓRIUMA",
+    paragraphs: [
+      "Valami egészen különös történik a Roxfort titkos laboratóriumában! Az éjszaka folyamán egy félresikerült varázslat megzavarta a mágikus erők egyensúlyát. A professzorok döbbenten tapasztalták, hogy a tárgyak láthatatlan erők hatására mozdulnak meg, a bájitalok pedig kiszámíthatatlanul viselkednek. A régi varázskönyvek szerint két ősi varázslat szabadult el.",
+      "Az egyiknek nincs alakja, mégis ereje van. A másik csendben szunnyad, de ha felébred, semmi sem marad nyugalomban… A professzorok hiába próbálták helyreállítani a rendet. Most olyan varázslódiákokra van szükségük, akik elég bátrak ahhoz, hogy szembenézzenek az ismeretlennel! Vajon sikerül megszelídítenetek a láthatatlan erőt, és felébresztenetek a titokzatos bájital varázserejét?",
+      "A laboratórium kapuja megnyílt előttetek!",
+      "Keressétek a Bátorságpróba Őrzőjét, aki beavat benneteket a mágikus kísérletek titkába! Ne feledjétek: a varázslat ott kezdődik, ahol a kíváncsiság találkozik a bátorsággal! Az üstök várnak, a titkos erők ébredeznek… Most rajtatok a sor! ✨"
+    ],
+    buttonLabel: "Titkos vizsga",
   },
 
   12: {
@@ -129,7 +170,7 @@ export const stationTexts = {
   14: {
     headline: "A VARÁZSLATOS ÉDESSÉGMŰHELY",
     paragraphs: [
-      "Kedves Varázslódiákok!",
+     
       "Különös illatok szállnak a levegőben…",
       "Egy titkos varázsműhelyhez érkeztetek, ahol még a legapróbb tárgyak is csodákra képesek. Ám ma este valami félresikerült!",
       "Egy huncut bűbáj összekeverte a varázspálcák és a repülő seprűk mágikus erejét. Azóta a pálcák nem szikráznak, a seprűk pedig egy tapodtat sem mozdulnak. A műhely mestere szerint a varázslatot csak azok állíthatják helyre, akikben egyszerre van kreativitás, ügyesség és egy csipetnyi bátorság.",
