@@ -27,7 +27,6 @@ export const stationTexts = {
     headline: "EDEVIS TÜKRE – Mered meglátni, amit mások nem látnak?",
     subHeadline: "A KÜLDETÉSETEK:",
     paragraphs: [
-     
       "Egy különös helyre érkeztetek.",
       "A legenda szerint Edevis tükre nem a külsőnket mutatja meg, hanem szívünk legmélyebb vágyát.",
       "Ám ma este a tükröket titokzatos varázslat érte.",
@@ -65,7 +64,6 @@ export const stationTexts = {
     headline:
       "AZ ELVARÁZSOLT SAKKTÁBLA! Titkos küldetés – mágikus stratégiai próba",
     paragraphs: [
-     
       "Egy ősi, elvarázsolt sakktábla elé érkeztetek, amelynek bábui egykor maguktól mozogtak, és csak a legbátrabb varázslók mertek szembeszállni velük. A legenda szerint Harry Potter és barátai is egy ilyen mágikus sakkjátszmával találkoztak, amikor a bölcsek kövének titkát kutatták. Akkor Ron Weasley bátorságán és leleményességén múlt, hogy barátai továbbjuthattak. Most azonban a sakktábla újra életre kelt…",
       "A bábuk egy titokzatos próbatételre várnak, de a tábla csak azok előtt nyitja meg az utat, akik képesek együtt gondolkodni, jó döntéseket hozni, és akkor is bátrak maradni, amikor minden lépés számít.",
       "Vajon készen álltok a mágikus sakkpróbára?",
@@ -113,10 +111,11 @@ export const stationTexts = {
   6: {
     headline: "A VARÁZSLATOK LABORATÓRIUMA",
     paragraphs: [
-      "Valami egészen különös történik a Roxfort titkos laboratóriumában! Az éjszaka folyamán egy félresikerült varázslat megzavarta a mágikus erők egyensúlyát. A professzorok döbbenten tapasztalták, hogy a tárgyak láthatatlan erők hatására mozdulnak meg, a bájitalok pedig kiszámíthatatlanul viselkednek. A régi varázskönyvek szerint két ősi varázslat szabadult el.",
-      "Az egyiknek nincs alakja, mégis ereje van. A másik csendben szunnyad, de ha felébred, semmi sem marad nyugalomban… A professzorok hiába próbálták helyreállítani a rendet. Most olyan varázslódiákokra van szükségük, akik elég bátrak ahhoz, hogy szembenézzenek az ismeretlennel! Vajon sikerül megszelídítenetek a láthatatlan erőt, és felébresztenetek a titokzatos bájital varázserejét?",
-      "A laboratórium kapuja megnyílt előttetek!",
-      "Keressétek a Bátorságpróba Őrzőjét, aki beavat benneteket a mágikus kísérletek titkába! Ne feledjétek: a varázslat ott kezdődik, ahol a kíváncsiság találkozik a bátorsággal! Az üstök várnak, a titkos erők ébredeznek… Most rajtatok a sor! ✨"
+      "Piton professzor titkos laboratóriumában különös dolgok történnek!",
+      "Egy félresikerült varázslat következtében láthatatlan erők ébredtek fel, a bájitalok pedig kiszámíthatatlanul viselkednek. A professzor attól tart, hogy ha nem sikerül helyreállítani a mágikus egyensúlyt, a laboratórium varázsereje örökre elveszhet. Ám Piton professzor nem enged akárkit a féltve őrzött kísérletei közelébe!",
+      "Előbb bizonyítanotok kell, hogy méltók vagytok a Roxfort varázslódiákjaihoz! Három titkos kérdés vár rátok. Ha sikeresen teljesítitek a mágikus tudáspróbát, megnyílik előttetek a laboratórium kapuja.",
+      "Készen álltok Piton professzor vizsgájára?",
+      "🪄 Kezdődjön a varázsvizsga! Ha sikerrel jártatok, keressétek a Bátorságpróba Őrzőjét! A valódi mágikus kísérletek csak ezután kezdődnek… ✨",
     ],
     buttonLabel: "Titkos vizsga",
   },
@@ -136,6 +135,7 @@ export const stationTexts = {
     confirmYes: "Igen",
     confirmNo: "Még nem",
   },
+
   15: {
     headline: "DOBBY SZABADSÁGA – A FÉNY VARÁZSLATA",
     paragraphs: [
@@ -170,7 +170,6 @@ export const stationTexts = {
   14: {
     headline: "A VARÁZSLATOS ÉDESSÉGMŰHELY",
     paragraphs: [
-     
       "Különös illatok szállnak a levegőben…",
       "Egy titkos varázsműhelyhez érkeztetek, ahol még a legapróbb tárgyak is csodákra képesek. Ám ma este valami félresikerült!",
       "Egy huncut bűbáj összekeverte a varázspálcák és a repülő seprűk mágikus erejét. Azóta a pálcák nem szikráznak, a seprűk pedig egy tapodtat sem mozdulnak. A műhely mestere szerint a varázslatot csak azok állíthatják helyre, akikben egyszerre van kreativitás, ügyesség és egy csipetnyi bátorság.",
