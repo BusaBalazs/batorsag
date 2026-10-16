@@ -3,6 +3,8 @@ import gsap from "gsap";
 import GameShell from "../components/GameShell.jsx";
 import { reduced } from "../lib/motion.js";
 
+const APP_URL = "https://rk.qrmb.hu/";
+
 async function copyText(text) {
   try {
     await navigator.clipboard.writeText(text);
@@ -41,7 +43,7 @@ export default function UnsupportedBrowser() {
   }, []);
 
   const handleCopy = async () => {
-    const ok = await copyText(window.location.href);
+    const ok = await copyText(APP_URL);
     setCopied(ok);
     if (!ok) linkRef.current?.select();
     if (!reduced()) gsap.fromTo("[data-result]", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" });
@@ -65,7 +67,7 @@ export default function UnsupportedBrowser() {
             data-in
             ref={linkRef}
             readOnly
-            value={typeof window !== "undefined" ? window.location.href : ""}
+            value={APP_URL}
             onFocus={(e) => e.target.select()}
             aria-label="Az alkalmazás linkje"
             className="w-full rounded-xl border border-gold/40 bg-night/70 px-3 py-2 text-center text-sm text-parchment/80"

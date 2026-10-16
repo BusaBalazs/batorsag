@@ -13,12 +13,30 @@ export default function MapMarker({ x, y }) {
   useLayoutEffect(() => {
     if (reduced()) return;
     const ctx = gsap.context(() => {
-      gsap.from("[data-pop]", { scale: 0, duration: 0.7, ease: "back.out(2.4)", delay: 0.5 });
-      gsap.to("[data-core]", { scale: 1.22, duration: 0.7, repeat: -1, yoyo: true, ease: "sine.inOut" });
+      gsap.from("[data-pop]", {
+        scale: 0,
+        duration: 0.7,
+        ease: "back.out(2.4)",
+        delay: 0.5,
+      });
+      gsap.to("[data-core]", {
+        scale: 1.22,
+        duration: 0.7,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+      });
       gsap.fromTo(
         "[data-ring]",
         { scale: 0.9, opacity: 0.75 },
-        { scale: 2.8, opacity: 0, duration: 1.8, repeat: -1, ease: "power1.out", stagger: 0.9 }
+        {
+          scale: 2.8,
+          opacity: 0,
+          duration: 1.8,
+          repeat: -1,
+          ease: "power1.out",
+          stagger: 0.9,
+        },
       );
     }, root);
     return () => ctx.revert();
@@ -31,16 +49,30 @@ export default function MapMarker({ x, y }) {
       className="pointer-events-none absolute size-0"
       style={{ left: `${x}%`, top: `${y}%` }}
     >
-      <div className="size-0" style={{ transform: "scale(calc(1 / var(--z, 1)))" }}>
+      <div
+        className="size-0"
+        style={{ transform: "scale(calc(1 / var(--z, 1)))" }}
+      >
         <div data-pop className="size-0">
-          <span data-ring className={`${center} size-12 rounded-full border-[3px] border-gold-light bg-crimson/30`} />
-          <span data-ring className={`${center} size-12 rounded-full border-[3px] border-gold-light bg-crimson/30`} />
+          <span
+            data-ring
+            className={`${center} size-12 rounded-full border-[3px] border-gold-light bg-crimson/30`}
+          />
+          <span
+            data-ring
+            className={`${center} size-12 rounded-full border-[3px] border-gold-light bg-crimson/30`}
+          />
           <span
             data-core
-            className={`${center} grid size-12 place-items-center rounded-full border-[3px] border-gold-light bg-radial from-[#ff6b6b] to-crimson shadow-[0_0_0_3px_rgba(5,13,28,0.85),0_0_26px_8px_rgba(255,214,120,0.85)]`}
+            className={`${center} grid size-6 place-items-center rounded-full border-[3px] border-gold-light/60 bg-radial from-[#ff6b6b]/40 to-crimson shadow-[0_0_0_3px_rgba(5,13,28,0.35),0_0_26px_8px_rgba(255,214,120,0.35)]`}
           >
-            <svg viewBox="0 0 24 24" className="size-6 text-white drop-shadow" fill="currentColor" aria-hidden="true">
-              <path d="M13.5 1 4 13.5h6L8.5 23 20 9.5h-6.5z" />
+            <svg
+              viewBox="0 0 24 24"
+              className="size-4 text-white drop-shadow"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path d="M3 3h8v8H3V3zm2 2v4h4V5H5zm8-2h8v8h-8V3zm2 2v4h4V5h-4zM3 13h8v8H3v-8zm2 2v4h4v-4H5zm13-2h3v2h-3v-2zm-5 0h2v2h-2v-2zm7 4h-2v2h2v-2zm-4-2h2v4h-2v-4zm2 5h3v3h-3v-3zm-7-1h2v2h-2v-2zm2 3h2v2h-2v-2z" />
             </svg>
           </span>
         </div>

@@ -36,7 +36,11 @@ export default function GameScreen({ game, incomingCode, onIncomingHandled }) {
     if (reduced()) return;
     const el = rootRef.current;
     // fromTo + clearProps: ha az animációt félúton megszakítja egy újabb képernyőváltás, sem marad átlátszó
-    const tween = gsap.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.45, ease: "power2.out", clearProps: "opacity" });
+    const tween = gsap.fromTo(
+      el,
+      { opacity: 0 },
+      { opacity: 1, duration: 0.45, ease: "power2.out", clearProps: "opacity" },
+    );
     return () => {
       tween.kill();
       gsap.set(el, { clearProps: "opacity" });
@@ -52,7 +56,12 @@ export default function GameScreen({ game, incomingCode, onIncomingHandled }) {
   let body;
   if (finished) {
     body = (
-      <FinishView startedAt={state.startedAt} finishedAt={state.finishedAt} total={total} onReset={reset} />
+      <FinishView
+        startedAt={state.startedAt}
+        finishedAt={state.finishedAt}
+        total={total}
+        onReset={reset}
+      />
     );
   } else if (state.phase === "game") {
     const Game = getGame(station.id);
@@ -68,12 +77,31 @@ export default function GameScreen({ game, incomingCode, onIncomingHandled }) {
         <Progress step={state.step} total={total} />
         <div className="flex flex-1 flex-col justify-center gap-5 py-4">
           <p className="text-center font-display text-lg font-semibold text-gold-light">
-            Keresd meg a jelölt helyet, és olvasd be az ott lévő QR-kódot!
+            Keresd meg a jelölt helyet, és olvasd be az ott lévő QR-kódot!{" "}
+            <br />
+            <small>
+              A térképet tudod nagyítani és elmozgatni az ujjaddal, vagy a
+              térkép alatt található gombokkal
+            </small>
           </p>
+
           <MapView key={station.id} station={station} />
         </div>
-        <button type="button" className="btn-gold w-full" onClick={() => setScanning(true)}>
-          <svg viewBox="0 0 24 24" className="size-6" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <button
+          type="button"
+          className="btn-gold w-full"
+          onClick={() => setScanning(true)}
+        >
+          <svg
+            viewBox="0 0 24 24"
+            className="size-6"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.4"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
             <path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M7 12h10" />
           </svg>
           QR-kód beolvasása
@@ -83,7 +111,9 @@ export default function GameScreen({ game, incomingCode, onIncomingHandled }) {
   }
 
   if (scanning && !finished && state.phase === "map") {
-    body = <ScannerView onResult={handleScan} onCancel={() => setScanning(false)} />;
+    body = (
+      <ScannerView onResult={handleScan} onCancel={() => setScanning(false)} />
+    );
   }
 
   // TESZT gomb (asztali teszteléshez, QR-kód beolvasása nélkül) – lásd SHOW_TEST_BUTTON a config.js-ben
@@ -101,13 +131,20 @@ export default function GameScreen({ game, incomingCode, onIncomingHandled }) {
           }
         }}
       >
-        TESZT: {state.phase === "map" ? `QR beolvasása (${station.id}. állomás)` : "állomás teljesítése"}
+        TESZT:{" "}
+        {state.phase === "map"
+          ? `QR beolvasása (${station.id}. állomás)`
+          : "állomás teljesítése"}
       </button>
     ) : null;
 
   return (
     <GameShell>
-      <div ref={rootRef} data-screen className="flex min-h-0 flex-1 flex-col gap-4">
+      <div
+        ref={rootRef}
+        data-screen
+        className="flex min-h-0 flex-1 flex-col gap-4"
+      >
         {body}
         {testButton}
       </div>
